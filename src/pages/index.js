@@ -17,9 +17,12 @@ const IndexPage = ({
       image: project.data.image.localFiles[0].childImageSharp.fluid,
     }
   })
-  const basicProjects = formattedProjects.filter(
-    project => project.type === "basic"
-  )
+  const basicProjects = formattedProjects
+    .filter(project => project.type === "basic")
+    .sort((a, b) => a.order - b.order)
+  const advancedProjects = formattedProjects
+    .filter(project => project.type === "advanced")
+    .sort((a, b) => a.order - b.order)
   return (
     <Layout>
       <SEO title="React Projects"></SEO>
@@ -32,6 +35,7 @@ const IndexPage = ({
         </a>
       </div>
       <Projects title="basic projects" projects={basicProjects} />
+      <Projects title="advanced projects" projects={advancedProjects} />
     </Layout>
   )
 }
