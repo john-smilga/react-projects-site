@@ -23,6 +23,9 @@ const IndexPage = ({
   const advancedProjects = formattedProjects
     .filter(project => project.type === "advanced")
     .sort((a, b) => a.order - b.order)
+  const finalProjects = formattedProjects
+    .filter(p => p.type === "final")
+    .sort((a, b) => a.order - b.order)
   return (
     <Layout>
       <SEO title="React Projects"></SEO>
@@ -36,6 +39,7 @@ const IndexPage = ({
       </div>
       <Projects title="basic projects" projects={basicProjects} />
       <Projects title="advanced projects" projects={advancedProjects} />
+      <Projects title="large-scale projects" projects={finalProjects} />
     </Layout>
   )
 }
