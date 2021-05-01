@@ -1,26 +1,17 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+
 module.exports = {
   siteMetadata: {
     title: `John Smilga`,
-    description: `React Projects`,
+    description: `Vanilla Javascript Projects`,
     author: `@johnsmilga`,
     twitterUsername: "@john_smilga",
     image: "/mainBcg.jpeg",
     siteUrl: "https://www.johnsmilga.com",
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-airtable`,
       options: {
@@ -35,7 +26,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-sitemap`,
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
@@ -45,19 +35,27 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: `gatsby-plugin-webfonts`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/logo.jpg`, // This path is relative to the root of the site.
+        fonts: {
+          google: [
+            {
+              family: "Montserrat",
+              variants: ["400", "500", "600", "700"],
+            },
+            {
+              family: "Inconsolata",
+              variants: ["400", "500", "600", "700"],
+            },
+          ],
+        },
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-styled-components`,
   ],
 }

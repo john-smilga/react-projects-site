@@ -1,46 +1,36 @@
 import React from "react"
-import Layout from "../components/layout"
-import Projects from "../components/Projects"
-import SEO from "../components/seo"
 import { graphql } from "gatsby"
-const url =
-  "https://www.udemy.com/course/react-tutorial-and-projects-course/?couponCode=REACT-SEPT-2020"
-const IndexPage = ({
-  data: {
+import Hero from "../components/Hero"
+import Projects from "../components/Projects"
+import Seo from "../components/seo"
+const HomePage = ({ data }) => {
+  const {
     allAirtable: { nodes: projects },
-  },
-}) => {
-  const formattedProjects = projects.map(project => {
+  } = data
+  const formattedProjects = projects.map((project) => {
     return {
       id: project.id,
       ...project.data,
-      image: project.data.image.localFiles[0].childImageSharp.fluid,
+      image: project.data.image.localFiles[0].childImageSharp.gatsbyImageData,
     }
   })
   const basicProjects = formattedProjects
-    .filter(project => project.type === "basic")
+    .filter((project) => project.type === "basic")
     .sort((a, b) => a.order - b.order)
   const advancedProjects = formattedProjects
-    .filter(project => project.type === "advanced")
+    .filter((project) => project.type === "advanced")
     .sort((a, b) => a.order - b.order)
   const finalProjects = formattedProjects
-    .filter(p => p.type === "final")
+    .filter((p) => p.type === "final")
     .sort((a, b) => a.order - b.order)
   return (
-    <Layout>
-      <SEO title="React Projects"></SEO>
-      <header className="hero">
-        <h1>react projects</h1>
-      </header>
-      <div className="course-link">
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          start course
-        </a>
-      </div>
+    <>
+      <Seo title="React Projects" />
+      <Hero />
       <Projects title="basic projects" projects={basicProjects} />
-      <Projects title="advanced projects" projects={advancedProjects} />
+      <Projects title="course exclusive" projects={advancedProjects} />
       <Projects title="large-scale projects" projects={finalProjects} />
-    </Layout>
+    </>
   )
 }
 
@@ -48,25 +38,23 @@ export const query = graphql`
   {
     allAirtable(sort: { fields: data___order, order: ASC }) {
       nodes {
+        id
         data {
-          url
-          type
-          order
           name
+          order
+          type
+          url
           image {
             localFiles {
               childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: CONSTRAINED, placeholder: TRACED_SVG)
               }
             }
           }
         }
-        id
       }
     }
   }
 `
 
-export default IndexPage
+export default HomePage

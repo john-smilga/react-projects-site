@@ -1,1 +1,2 @@
-import "./src/css/main.css"
+import 'normalize.css'
+import './src/assets/main.css'
