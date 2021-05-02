@@ -78,6 +78,7 @@ const Wrapper = styled.div`
   .hero-btn {
     display: inline-block;
     background: var(--primary-design);
+    border: 2px solid var(--primary-design);
     color: var(--black-design);
     font-weight: 500;
     text-transform: uppercase;
@@ -86,7 +87,8 @@ const Wrapper = styled.div`
     animation: bounce 2s infinite;
   }
   .hero-btn:hover {
-    background: var(--yellow-dark);
+    background: transparent;
+
     box-shadow: var(--shadow-2);
     color: var(--primary-design);
   }
